@@ -1,13 +1,14 @@
-import userEvent from '@testing-library/user-event';
 import {initializeApp} from 'firebase/app'; // to setup a firebase instance.
 
 import { 
     getAuth,
     signInWithRedirect, 
     signInWithPopup,
-    GoogleAuthProvider 
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword, 
 } from 'firebase/auth';  
-import { get } from 'firebase/database';
+
 
 import {
     getFirestore,
@@ -27,7 +28,7 @@ const firebaseConfig = {
 };
   
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
@@ -36,12 +37,17 @@ provider.setCustomParameters({
 
 export const auth = getAuth()
 export const signInWithGooglePopUp = () => signInWithPopup(auth,provider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth,provider);
 
 
 
 //setting up the firestore db
 export const db = getFirestore();
-export const createUserDocumentFromAuth = async (userAuth) => {  
+
+
+export const createUserDocumentFromAuth = async (userAuth, addtionalInfo) => {  
+    if (!userAuth) return;
+
     const userDocRef = doc(db,'users',userAuth.uid);
     console.log(userDocRef);
 
@@ -59,6 +65,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
                     displayName,
                     email,
                     createdAt,
+                    ...addtionalInfo
                 }
             )
 
@@ -67,4 +74,18 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         }
 
     }
+    return userDocRef;
 }
+
+export const createAuthUserWithEmailAndPassword = async (email,password) => {
+    if (!email || !password) return;
+
+    return await createUserWithEmailAndPassword(auth,email,password);
+}
+
+export const SignInAuthUserWithEmailAndPassword = async (email,password) => {
+    if (!email || !password) return;
+
+    return await signInWithEmailAndPassword(auth,email,password);
+}
+
