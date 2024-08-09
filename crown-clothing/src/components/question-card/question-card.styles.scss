@@ -1,0 +1,33 @@
+.question-card-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    .question { 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        cursor: pointer;
+        background-color: #f9f9f9;
+
+        h3{
+            margin: 0;
+            font-size: 18px;
+        }
+
+    }
+
+    .answer {  
+        padding: 15px;
+        background-color: #fff;
+        border-top: 1px solid #ddd;
+
+        p {
+            margin: 0;
+        }
+
+    }
+
+}

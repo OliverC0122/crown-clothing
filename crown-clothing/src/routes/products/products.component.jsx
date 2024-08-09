@@ -1,13 +1,13 @@
 
 import {Routes,Route} from "react-router-dom";
 
-import './shop.style.scss';
+import './products.styles.scss';
 
 import CategoriesPreview from '../categories-preview/categories-preview';
 import Category from "../category/category.component";
 
 
-const Shop = () => {
+const Products = () => {
     return(
         <Routes>
             <Route index element={<CategoriesPreview/>}/>
@@ -17,4 +17,4 @@ const Shop = () => {
     )
 }
 
-export default Shop;
+export default Products;

@@ -24,15 +24,29 @@ const Navigation = () => {
                 <CrownLogo className="logo"/>
             </Link>
             <div className="nav-links-container">
-                <Link className="nav-link" to="shop">
-                    SHOP
+
+                <Link className="nav-link" to="/">
+                    Home
                 </Link>
+
+                <Link className="nav-link" to="products">
+                    Products
+                </Link>
+
+                <Link className="nav-link" to="support">
+                    Support 
+                </Link>
+
+                <Link className="nav-link" to="contactus">
+                    Contact Us
+                </Link>
+
                 {currentUser ? 
                 (<span className="sign-in-link" to="auth" onClick={signOutUser}>
-                    SIGN OUT
+                    Sign Out
                 </span>) : 
                 (<Link className="sign-in-link" to="auth">
-                    SIGN IN
+                    Sign In
                 </Link>)}
 
                 <Link className="cart-link">
