@@ -42,10 +42,10 @@ const Navigation = () => {
                 </Link>
 
                 {currentUser ? 
-                (<span className="sign-in-link" to="auth" onClick={signOutUser}>
+                (<span className="nav-link" onClick={signOutUser}>
                     Sign Out
                 </span>) : 
-                (<Link className="sign-in-link" to="auth">
+                (<Link className="nav-link" to="auth">
                     Sign In
                 </Link>)}
 

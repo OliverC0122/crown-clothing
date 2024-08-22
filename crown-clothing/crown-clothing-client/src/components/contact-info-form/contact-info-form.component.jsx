@@ -17,8 +17,10 @@ const ContactInfoForm = () => {
     const {name,email,phone,message} = formFeilds;
 
     const handleChange = (event) => { 
+        console.log(event.target.name , event.target.value);
         const {name,value} = event.target;
         setFormFeilds({...formFeilds,[name]:value})
+
     }
 
     const resetFormFields = () => {
@@ -46,16 +48,18 @@ const ContactInfoForm = () => {
 
             <form onSubmit={handleSubmit}>
 
-                <FormInput label='Name' type="text" onChange={handleChange} name="displayName" value={name}/>
+                <FormInput label='Name' type="text" onChange={handleChange} name="name" value={name}/>
 
                 <FormInput label='Email' required type="email" onChange={handleChange} name="email" value={email}/>
 
                 <FormInput label='Phone'  type="text" onChange={handleChange} name="phone" value={phone}/>
 
                 <FormInput label='Message' type="text" onChange={handleChange} name="message" value={message}/>
-                <div className="button-container">
-                    <Button type='submit' onClick={handleSubmit}>submit</Button>
+                
+                <div className="submit-button-container">
+                    <Button  onClick={handleSubmit}>Submit</Button>
                 </div>
+
             </form>
         </div>
     )
