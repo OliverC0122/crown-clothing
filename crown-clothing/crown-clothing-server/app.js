@@ -10,6 +10,8 @@ var cors = require('cors')
 
 //importing routes
 const usersRoutes = require('./routes/users')
+const productsRoutes = require('./routes/products')
+const categoriesRoutes = require('./routes/categories')
 
 const mongoose = require('mongoose');
 
@@ -53,6 +55,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use('/',usersRoutes);
+app.use('/products',productsRoutes);
+app.use('/categories',categoriesRoutes);
 
 
 app.get('/',(req,res) => {
