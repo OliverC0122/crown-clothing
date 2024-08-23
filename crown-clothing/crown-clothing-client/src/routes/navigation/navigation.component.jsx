@@ -1,11 +1,11 @@
 import { Outlet, Link } from "react-router-dom";
 
-import { Fragment, useContext } from "react";
+import { Fragment, useContext,useEffect } from "react";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import './navigation.style.scss';
 
 import { UserContext } from "../../contexts/user.context";
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
@@ -13,9 +13,17 @@ import { CartContext } from "../../contexts/cart.context";
 
 
 const Navigation = () => {
+    
 
-    const {currentUser} = useContext(UserContext);
     const {isCartOpen} = useContext(CartContext);
+    const { currentUser, signOutUser} = useContext(UserContext);
+
+    // Use useEffect to perform side effects
+    useEffect(() => {
+        if (currentUser) {
+            console.log('User logged in:', currentUser);
+        } 
+    }, [currentUser]); // effect runs when currentUser changes
 
     return (
       <Fragment>

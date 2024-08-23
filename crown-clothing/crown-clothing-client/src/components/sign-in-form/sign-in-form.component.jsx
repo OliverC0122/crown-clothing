@@ -1,24 +1,26 @@
 import { useState } from "react";
-import { 
-    signInWithGooglePopUp,
-    SignInAuthUserWithEmailAndPassword
-
-} from "../../utils/firebase/firebase.utils";
+import api from '../../api/axios/axiosConfig';
 
 import FormInput from "../form-input/form-input.component";
 import './sign-in-form.style.scss'
 import Button from "../button/button.component";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/user.context";
+import { useNavigate } from "react-router-dom";
+
 
 
 const defaultFormFeilds = {
-    email:'',
+    username:'',
     password:'',
 }
 
 const SignInForm = () => {
 
+    const {setCurrentUser} = useContext(UserContext);
     const [formFeilds,setFormFeilds] = useState(defaultFormFeilds);
-    const {email,password} = formFeilds;
+    const {username,password} = formFeilds;
+    const navigate = useNavigate();
 
     const handleChange = (event) => { 
         const {name,value} = event.target;
@@ -29,22 +31,39 @@ const SignInForm = () => {
         setFormFeilds(defaultFormFeilds);
     }
 
-    const logGoogleUser = async () => {
-        await signInWithGooglePopUp();
-
-    }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
+    
+        try {
+            const res = await api.post('/login',{username,password});
+    
+            if (res.status === 200) {
+                // Handle successful login
+                const user = res.data.user;
+                setCurrentUser(user);
+                navigate(-1);
+                resetFormFields();
+            } else {
+                alert('Incorrect Email or Password, please try again.');
+            }
+    
+        } catch (err) {
 
-        try{
-            await SignInAuthUserWithEmailAndPassword(email,password);
-
-            resetFormFields();
-        }catch(err){
-            if (err.code === 'auth/invalid-credential' ) alert('Incorrect Email or Password, please try again.')
+            if (err.response) {
+                if (err.response.status === 401) {
+                    alert('Incorrect Email or Password, please try again.');
+                } else if (err.response.status === 404) {
+                    console.error('Endpoint not found:', err.response.config.url);
+                    alert('Login endpoint not found. Please check the URL.');
+                } else {
+                    console.error('Error during login:', err);
+                    alert('An error occurred. Please try again.');
+                }
+            } else {
+                console.error('Error during login:', err);
+                alert('An error occurred. Please try again.');
+            }
         }
-       
     }
 
     return (
@@ -55,15 +74,12 @@ const SignInForm = () => {
             </span>
 
             <form onSubmit={handleSubmit}>
-                <FormInput label='Email' required type="email" onChange={handleChange} name="email" value={email}/>
+                <FormInput label='Username' required type="text" onChange={handleChange} name="username" value={username}/>
                 <FormInput label='Password' required type="password" onChange={handleChange} name="password" value={password}/>
-                
             </form>
 
-            <div className="buttons-container">
+            <div className="signin-button-container">
             <Button type='submit' onClick={handleSubmit}>Sign In</Button>
-
-            <Button type='button' onClick={logGoogleUser} buttonType='google'> Google Sign In </Button>
             </div>
                
         </div>

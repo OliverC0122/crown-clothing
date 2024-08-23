@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { 
-    createAuthUserWithEmailAndPassword,
-    createUserDocumentFromAuth,
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/user.context";
 
-} from "../../utils/firebase/firebase.utils";
+import api from '../../api/axios/axiosConfig'
 
 import FormInput from "../form-input/form-input.component";
 import './sign-up-form.style.scss'
 import Button from "../button/button.component";
 
+
+
 const defaultFormFeilds = {
-    displayName: '',
+    username: '',
     email:'',
     password:'',
     confirmPassword:'',
@@ -18,8 +20,12 @@ const defaultFormFeilds = {
 
 const SignUpForm = () => {
 
+    const {currentUser,setCurrentUser} = useContext(UserContext);
+
+
     const [formFeilds,setFormFeilds] = useState(defaultFormFeilds);
-    const {displayName,email,password,confirmPassword} = formFeilds;
+    const {username,email,password,confirmPassword} = formFeilds;
+    const navigate = useNavigate();
 
     const handleChange = (event) => { 
         const {name,value} = event.target;
@@ -31,26 +37,34 @@ const SignUpForm = () => {
     }
 
     const handleSubmit = async (event) => {
+
         event.preventDefault();
-        
+
         if (password !== confirmPassword){
             alert('password do not match');
             return;
         }
 
         try{
-
-            const {user} = await createAuthUserWithEmailAndPassword(email,password);
-            await createUserDocumentFromAuth(user, {displayName});
+            
+            const res = await api.post('/register', {
+                username,
+                email,
+                password
+            });
+            
+            // set the currentUser
+            console.log(res);
+            setCurrentUser(res.data);
+            if (currentUser){
+                navigate(-1);
+            }
 
             resetFormFields();
 
         }catch(err){
-            if (err.code === 'auth/email-already-in-use'){
-                alert('cannot create user, email already in use');
-            }else{
-                console.log(err);
-            }
+            
+            console.log(err);
         }
     }
 
@@ -63,14 +77,15 @@ const SignUpForm = () => {
 
             <form onSubmit={handleSubmit}>
 
-                <FormInput label='Display Name' required type="text" onChange={handleChange} name="displayName" value={displayName}/>
+                <FormInput label='Username' required type="text" onChange={handleChange} name="username" value={username}/>
 
                 <FormInput label='Email' required type="email" onChange={handleChange} name="email" value={email}/>
 
                 <FormInput label='Password' required type="password" onChange={handleChange} name="password" value={password}/>
 
                 <FormInput label='Confirm Password' required type="password" onChange={handleChange} name="confirmPassword" value={confirmPassword}/>
-                <Button type='submit'>Sign Up</Button>
+                <div className="sign-up-button-container"><Button type='submit'>Sign Up</Button></div>
+
             </form>
         </div>
     )
