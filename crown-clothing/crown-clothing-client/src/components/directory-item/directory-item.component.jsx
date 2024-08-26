@@ -8,6 +8,7 @@ const DirectoryItem = ({category}) => {
     const navigate = useNavigate();
 
     const onNavigateHandler = () => navigate(route);
+    
     return (
 
         <div className="directory-container" onClick={onNavigateHandler}>
