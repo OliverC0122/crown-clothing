@@ -1,5 +1,6 @@
 const Category = require('../models/category');
 const Product = require('../models/product'); // Import the Product model
+
 module.exports.getCategories = async (req, res) => {
     try {
         const populatedCategories = await Category.find({}).populate('products');
@@ -22,3 +23,4 @@ module.exports.getProductsByCategory = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+

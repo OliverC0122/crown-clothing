@@ -17,7 +17,6 @@ const ContactInfoForm = () => {
     const {name,email,phone,message} = formFeilds;
 
     const handleChange = (event) => { 
-        console.log(event.target.name , event.target.value);
         const {name,value} = event.target;
         setFormFeilds({...formFeilds,[name]:value})
 
@@ -34,7 +33,6 @@ const ContactInfoForm = () => {
         if(!email){
             alert('Email is required');
         }else{
-            console.log('form submitted:', formFeilds);
             resetFormFields();
         }
     }

@@ -25,17 +25,17 @@ const Navigation = () => {
         } 
     }, [currentUser]); // effect runs when currentUser changes
 
+
+
+
     return (
       <Fragment>
         <div className="navigation">
             <Link className="logo-link" to="/">
                 <CrownLogo className="logo"/>
             </Link>
-            <div className="nav-links-container">
 
-                <Link className="nav-link" to="/">
-                    Home
-                </Link>
+            <div className="nav-links-container">
 
                 <Link className="nav-link" to="products">
                     Products
@@ -50,9 +50,17 @@ const Navigation = () => {
                 </Link>
 
                 {currentUser ? 
-                (<span className="nav-link" onClick={signOutUser}>
+                (<div className="admin-links-container">
+                <Link className="nav-link" to="new">
+                    Add New Products
+                </Link>
+
+                <span className="nav-link" onClick={signOutUser}>
                     Sign Out
-                </span>) : 
+                </span>
+                </div>
+                
+                ) : 
                 (<Link className="nav-link" to="auth">
                     Sign In
                 </Link>)}
