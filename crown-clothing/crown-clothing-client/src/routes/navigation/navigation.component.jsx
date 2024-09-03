@@ -4,27 +4,40 @@ import { Fragment, useContext,useEffect } from "react";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import './navigation.style.scss';
 
-import { UserContext } from "../../contexts/user.context";
+import { useSelector, useDispatch } from "react-redux";
 
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import { CartContext } from "../../contexts/cart.context";
-
+import { signOutUser } from "../../store/user/user.action";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import api from '../../api/axios/axiosConfig'
 
 const Navigation = () => {
+
+    const dispatch  = useDispatch();
     
+    const currentUser = useSelector(selectCurrentUser); 
 
     const {isCartOpen} = useContext(CartContext);
-    const { currentUser, signOutUser} = useContext(UserContext);
+
+    const signOutCurrentUser = async () => {
+
+        try {
+            await api.get('/logout');
+            dispatch(signOutUser());
+        } catch (error) {
+            console.error('Failed to sign out', error);
+        }
+    }
+
 
     // Use useEffect to perform side effects
     useEffect(() => {
-        if (currentUser) {
-            console.log('User logged in:', currentUser);
-        } 
-    }, [currentUser]); // effect runs when currentUser changes
 
+    }, [currentUser]); // effect runs when currentUser changes
+ 
 
 
 
@@ -55,7 +68,7 @@ const Navigation = () => {
                     Add New Products
                 </Link>
 
-                <span className="nav-link" onClick={signOutUser}>
+                <span className="nav-link" onClick={signOutCurrentUser}>
                     Sign Out
                 </span>
                 </div>

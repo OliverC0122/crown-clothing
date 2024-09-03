@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/user.context";
 
 import api from '../../api/axios/axiosConfig'
 
 import FormInput from "../form-input/form-input.component";
 import './sign-up-form.style.scss'
 import Button from "../button/button.component";
+import { useDispatch, useSelector } from "react-redux";
+import {setCurrentUser} from "../../store/user/user.action"
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 
 
@@ -20,7 +21,8 @@ const defaultFormFeilds = {
 
 const SignUpForm = () => {
 
-    const {currentUser,setCurrentUser} = useContext(UserContext);
+    const dispatch = useDispatch();
+    const currentUser = useSelector(selectCurrentUser);
 
 
     const [formFeilds,setFormFeilds] = useState(defaultFormFeilds);
@@ -55,7 +57,8 @@ const SignUpForm = () => {
             
             // set the currentUser
             console.log(res);
-            setCurrentUser(res.data);
+
+            dispatch(setCurrentUser(res.data));
             if (currentUser){
                 navigate(-1);
             }

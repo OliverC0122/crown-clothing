@@ -3,9 +3,10 @@ import { useEffect, useState, useContext } from "react";
 import { useParams,useNavigate } from "react-router-dom";
 import './product-display.styles.scss';
 
-import { UserContext } from "../../contexts/user.context";
 import { CartContext } from "../../contexts/cart.context";
 import Button from "../../components/button/button.component";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 
 
@@ -13,8 +14,8 @@ const ProductDisplay = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const navigate = useNavigate();
-
-    const { currentUser } = useContext(UserContext);
+    
+    const currentUser = useSelector(selectCurrentUser)
 
     const {addItemToCart} = useContext(CartContext);
     const addProductToCart = () => addItemToCart(product);

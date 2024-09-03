@@ -4,9 +4,10 @@ import api from '../../api/axios/axiosConfig';
 import FormInput from "../form-input/form-input.component";
 import './sign-in-form.style.scss'
 import Button from "../button/button.component";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/user.context";
+
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {setCurrentUser} from '../../store/user/user.action';
 
 
 
@@ -17,7 +18,9 @@ const defaultFormFeilds = {
 
 const SignInForm = () => {
 
-    const {setCurrentUser} = useContext(UserContext);
+
+    const dispatch = useDispatch();
+
     const [formFeilds,setFormFeilds] = useState(defaultFormFeilds);
     const {username,password} = formFeilds;
     const navigate = useNavigate();
@@ -40,7 +43,9 @@ const SignInForm = () => {
             if (res.status === 200) {
                 // Handle successful login
                 const user = res.data.user;
-                setCurrentUser(user);
+
+                dispatch(setCurrentUser(user));
+
                 navigate(-1);
                 resetFormFields();
             } else {
