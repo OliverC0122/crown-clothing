@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 
-import { Fragment, useContext,useEffect } from "react";
+import { Fragment,useEffect } from "react";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import './navigation.style.scss';
 
@@ -9,10 +9,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
-import { CartContext } from "../../contexts/cart.context";
+
 import { signOutUser } from "../../store/user/user.action";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import api from '../../api/axios/axiosConfig'
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 const Navigation = () => {
 
@@ -20,7 +21,7 @@ const Navigation = () => {
     
     const currentUser = useSelector(selectCurrentUser); 
 
-    const {isCartOpen} = useContext(CartContext);
+    const isCartOpen = useSelector(selectIsCartOpen);
 
     const signOutCurrentUser = async () => {
 

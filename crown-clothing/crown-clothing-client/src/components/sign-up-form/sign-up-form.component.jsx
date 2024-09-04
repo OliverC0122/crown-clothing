@@ -54,9 +54,6 @@ const SignUpForm = () => {
                 email,
                 password
             });
-            
-            // set the currentUser
-            console.log(res);
 
             dispatch(setCurrentUser(res.data));
             if (currentUser){

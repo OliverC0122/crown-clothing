@@ -1,12 +1,13 @@
 import api from "../../api/axios/axiosConfig";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState} from "react";
 import { useParams,useNavigate } from "react-router-dom";
 import './product-display.styles.scss';
 
-import { CartContext } from "../../contexts/cart.context";
 import Button from "../../components/button/button.component";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
+import { addItemToCart } from "../../store/cart/cart.action";
+import { selectCartItems } from "../../store/cart/cart.selector";
 
 
 
@@ -14,13 +15,12 @@ const ProductDisplay = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const navigate = useNavigate();
-    
     const currentUser = useSelector(selectCurrentUser)
 
-    const {addItemToCart} = useContext(CartContext);
-    const addProductToCart = () => addItemToCart(product);
-    
+    const dispatch = useDispatch();
+    const cartItems = useSelector(selectCartItems);
 
+    const addProductToCart = () => dispatch(addItemToCart(cartItems,product));
 
     useEffect(() => {
         const getProduct = async () => {
