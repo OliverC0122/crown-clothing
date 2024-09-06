@@ -4,7 +4,6 @@ import { Fragment, useEffect, useState, useCallback } from 'react'; // Import us
 import api from '../../api/axios/axiosConfig';
 import ProductCard from '../../components/product-card/product-card.component';
 
-
 const Category = () => {
 
 
@@ -28,13 +27,15 @@ const Category = () => {
     return (
         <Fragment>
             <h2 className='category-title'>{category.toUpperCase()}</h2>
-            <div className='category-container'>
-                {products && products.map((product)=>{
-                    return (
-                        <ProductCard product={product} key={product.id}/>
-                    )
-                })}
-            </div>
+            {
+                <div className='category-container'>
+                    {products && products.map((product)=>{
+                        return (
+                            <ProductCard product={product} key={product.id}/>
+                        )
+                    })}
+                </div>
+            }
         </Fragment>
     )
 }

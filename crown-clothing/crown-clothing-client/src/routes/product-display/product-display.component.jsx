@@ -44,8 +44,7 @@ const ProductDisplay = () => {
     const handleDelete = () => {
 
         try {
-            const res = api.delete(`/products/${id}`);
-            console.log(res);
+            api.delete(`/products/${id}`);
             navigate('/products');  
 
         }catch (error) {
