@@ -1,5 +1,5 @@
 import { useState } from "react";
-import api from '../../api/axios/axiosConfig';
+
 
 import FormInput from "../form-input/form-input.component";
 import './sign-in-form.style.scss'
@@ -7,9 +7,7 @@ import Button from "../button/button.component";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {setCurrentUser} from '../../store/user/user.action';
-
-
+import { signInStart } from "../../store/user/user.action";
 
 const defaultFormFeilds = {
     username:'',
@@ -38,19 +36,11 @@ const SignInForm = () => {
         event.preventDefault();
     
         try {
-            const res = await api.post('/login',{username,password});
+            // const res = await api.post('/login',{username,password});
+            dispatch(signInStart(username,password));
+            navigate(-1);
+            resetFormFields();
     
-            if (res.status === 200) {
-                // Handle successful login
-                const user = res.data.user;
-
-                dispatch(setCurrentUser(user));
-
-                navigate(-1);
-                resetFormFields();
-            } else {
-                alert('Incorrect Email or Password, please try again.');
-            }
     
         } catch (err) {
 

@@ -19,8 +19,6 @@ router.route('/register')
 
 router.post('/login', passport.authenticate('local'), loginUser);
 
-
-
 router.route('/logout').get(logoutUser);
 
 module.exports = router;

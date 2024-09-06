@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import api from '../../api/axios/axiosConfig'
-
 import FormInput from "../form-input/form-input.component";
 import './sign-up-form.style.scss'
 import Button from "../button/button.component";
 import { useDispatch, useSelector } from "react-redux";
-import {setCurrentUser} from "../../store/user/user.action"
+
 import { selectCurrentUser } from "../../store/user/user.selector";
+import { signUpStart } from "../../store/user/user.action";
 
 
 
@@ -49,13 +48,7 @@ const SignUpForm = () => {
 
         try{
             
-            const res = await api.post('/register', {
-                username,
-                email,
-                password
-            });
-
-            dispatch(setCurrentUser(res.data));
+            dispatch(signUpStart(username,email,password));
             if (currentUser){
                 navigate(-1);
             }
