@@ -7,7 +7,9 @@ import Button from "../button/button.component";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectCurrentUser } from "../../store/user/user.selector";
-import { signUpStart } from "../../store/user/user.action";
+
+import { setCurrentUser } from "../../store/user/user.reducer";
+import  api from "../../api/axios/axiosConfig"
 
 
 
@@ -47,8 +49,11 @@ const SignUpForm = () => {
         }
 
         try{
-            
-            dispatch(signUpStart(username,email,password));
+            const res = await api.post('/register',{username,email,password});
+
+            const user = res.data;
+
+            dispatch(setCurrentUser(user));
             if (currentUser){
                 navigate(-1);
             }

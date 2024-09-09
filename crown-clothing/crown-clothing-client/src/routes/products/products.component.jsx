@@ -5,14 +5,11 @@ import './products.styles.scss';
 
 import CategoriesPreview from '../categories-preview/categories-preview';
 import Category from "../category/category.component";
-import { fetchCategoriesStart } from "../../store/categories/category.action";
-
-
+import { setCategories } from "../../store/categories/category.reducer";
 import { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
-
-
+import api from  '../../api/axios/axiosConfig'
 
 
 const Products = () => {
@@ -20,7 +17,14 @@ const Products = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchCategoriesStart());
+        const getCategories = async () => {
+            const res = await api.get('/categories');
+            const categoriesArray = res.data;
+            dispatch(setCategories(categoriesArray));
+
+        }
+        getCategories();
+        
 
     },[dispatch])
 

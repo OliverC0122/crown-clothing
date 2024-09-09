@@ -7,7 +7,9 @@ import Button from "../button/button.component";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signInStart } from "../../store/user/user.action";
+// import { signInStart } from "../../store/user/user.action";
+import { setCurrentUser } from "../../store/user/user.reducer";
+import api from '../../api/axios/axiosConfig';
 
 const defaultFormFeilds = {
     username:'',
@@ -36,8 +38,8 @@ const SignInForm = () => {
         event.preventDefault();
     
         try {
-            // const res = await api.post('/login',{username,password});
-            dispatch(signInStart(username,password));
+            const res = await api.post('/login',{username,password});
+            dispatch(setCurrentUser(res.data.user));
             navigate(-1);
             resetFormFields();
     

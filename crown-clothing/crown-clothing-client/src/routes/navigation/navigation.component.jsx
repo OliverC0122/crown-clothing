@@ -10,7 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
-import { signOutStart } from "../../store/user/user.action";
+// import { signOutStart } from "../../store/user/user.action";
+import { setCurrentUser } from "../../store/user/user.reducer";
 import { selectCurrentUser } from "../../store/user/user.selector";
 
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
@@ -25,7 +26,7 @@ const Navigation = () => {
 
     const signOutCurrentUser = () => {
 
-        dispatch(signOutStart());
+        dispatch(setCurrentUser(null));
     }
 
 

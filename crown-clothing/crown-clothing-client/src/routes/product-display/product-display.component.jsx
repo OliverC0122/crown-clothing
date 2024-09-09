@@ -6,8 +6,7 @@ import './product-display.styles.scss';
 import Button from "../../components/button/button.component";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
-import { addItemToCart } from "../../store/cart/cart.action";
-import { selectCartItems } from "../../store/cart/cart.selector";
+import { addItemToCart } from "../../store/cart/cart.reducer";
 
 
 
@@ -18,9 +17,9 @@ const ProductDisplay = () => {
     const currentUser = useSelector(selectCurrentUser)
 
     const dispatch = useDispatch();
-    const cartItems = useSelector(selectCartItems);
 
-    const addProductToCart = () => dispatch(addItemToCart(cartItems,product));
+
+    const addProductToCart = () => dispatch(addItemToCart(product));
 
     useEffect(() => {
         const getProduct = async () => {
