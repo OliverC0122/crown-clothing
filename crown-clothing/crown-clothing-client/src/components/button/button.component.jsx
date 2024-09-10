@@ -1,16 +1,18 @@
 
 import './button.style.scss'
+import Spinner from '../spinner/spinner.component';
 
-const BUTTON_TYPE_CLASSES = {
+export const BUTTON_TYPE_CLASSES = {
     google: 'google-sign-in',
     inverted : 'inverted'
 }
 
-const Button = ({children, buttonType,...otherProps}) => {
+
+const Button = ({children, buttonType, isLoading,...otherProps}) => {
     return (
-        <button className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}
+        <button disabled={isLoading} className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}
         {...otherProps}>
-            {children}
+            {isLoading? <Spinner/> : children}
         </button>
     )
 }

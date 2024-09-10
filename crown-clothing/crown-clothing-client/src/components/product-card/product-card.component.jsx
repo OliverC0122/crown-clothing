@@ -3,7 +3,6 @@ import Button from '../button/button.component';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch} from 'react-redux';
-
 import { addItemToCart } from '../../store/cart/cart.reducer';
 
 

@@ -1,0 +1,19 @@
+.payment-form-container{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    .form-container{
+        height: 100px;
+        min-width: 50px;
+
+        .payment-button-container{
+            margin-left: auto;
+            margin-top: 30px;
+        }
+    }
+
+}
+
