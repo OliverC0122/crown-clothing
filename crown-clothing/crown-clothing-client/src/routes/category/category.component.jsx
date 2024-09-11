@@ -31,7 +31,7 @@ const Category = () => {
                 <div className='category-container'>
                     {products && products.map((product)=>{
                         return (
-                            <ProductCard product={product} key={product.id}/>
+                            <ProductCard product={product} key={product._id}/>
                         )
                     })}
                 </div>

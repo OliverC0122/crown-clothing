@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const addCartItem = (cartItems,productToAdd) => {
     //find if cartItems already contains the product to add.
     const existingCartItem = cartItems.find((cartItem) => { 
-        return (cartItem.id === productToAdd.id);
+        return (cartItem._id === productToAdd._id);
     })
 
     if(existingCartItem){
-        return cartItems.map( (cartItem) => cartItem.id === productToAdd.id ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem )
+        return cartItems.map( (cartItem) => cartItem._id === productToAdd._id ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem )
     }
     
     return [...cartItems,{...productToAdd, quantity:1}]
@@ -16,14 +16,14 @@ const addCartItem = (cartItems,productToAdd) => {
 const removeCartItem = (cartItems, cartItemToRemove) => {
     //find if cartItems already contains the product to remove.
     const existingCartItem = cartItems.find((cartItem) => { 
-        return (cartItem.id === cartItemToRemove.id);
+        return (cartItem._id === cartItemToRemove._id);
     })
     if(existingCartItem.quantity === 1){
-        return cartItems.filter((item) => (item.id !== cartItemToRemove.id))
+        return cartItems.filter((item) => (item._id !== cartItemToRemove._id))
     }
 
     return cartItems.map( 
-        (cartItem) => cartItem.id === cartItemToRemove.id 
+        (cartItem) => cartItem._id === cartItemToRemove._id 
         ? 
         {...cartItem, quantity: cartItem.quantity - 1} 
         : 
@@ -31,7 +31,7 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
 }
 
 const clearCartItem = (cartItems,cartItemToClear) => {
-    return cartItems.filter((item) => (item.id !== cartItemToClear.id))
+    return cartItems.filter((item) => (item._id !== cartItemToClear._id))
 }
 
 
@@ -58,6 +58,9 @@ export const cartSlice = createSlice({
         },
         setIsCartOpen(state,action) {
             state.isCartOpen = action.payload;
+        },
+        clearAllCartItems(state, action) {
+            state.cartItems = [];
         }
 
     }
@@ -68,7 +71,8 @@ export const {
     setIsCartOpen,
     addItemToCart,
     removeItemFromCart,
-    clearItemFromCart
+    clearItemFromCart,
+    clearAllCartItems
 }  = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;

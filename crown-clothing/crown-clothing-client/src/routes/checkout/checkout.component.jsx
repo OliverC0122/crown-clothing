@@ -33,7 +33,7 @@ const Checkout = () => {
                     <span>remove</span>
                 </div>
             </div>
-            {cartItems.map((cartItem) => <CheckoutItem key={cartItem.id} cartItem={cartItem}/>)}
+            {cartItems.map((cartItem) => <CheckoutItem key={cartItem._id} cartItem={cartItem}/>)}
 
             <span className='total'>Total: ${cartTotal}.00 </span>
             <PaymentForm/>

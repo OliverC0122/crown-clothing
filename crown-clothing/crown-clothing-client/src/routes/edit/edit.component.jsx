@@ -1,4 +1,4 @@
-import ProductEdit from "../../components/ product-edit-form/product-edit-form.component";
+import ProductEdit from "../../components/product-edit-form/product-edit-form.component";
 import './edit.styles.scss';
 
 const Edit = () => {
