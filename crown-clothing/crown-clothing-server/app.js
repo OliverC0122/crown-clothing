@@ -46,6 +46,7 @@ const store = MongoStore.create({
 
 const sessionConfig = {
     store,
+    secret,
     name: 'cc-session',
     resave: false,
     saveUninitialized: true,
