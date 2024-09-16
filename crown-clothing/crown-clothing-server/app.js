@@ -1,4 +1,6 @@
+
 require('dotenv').config();
+
 const express = require('express');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -13,10 +15,12 @@ const usersRoutes = require('./routes/users')
 const productsRoutes = require('./routes/products')
 const categoriesRoutes = require('./routes/categories')
 
+
+const MongoStore = require("connect-mongo");
 const mongoose = require('mongoose');
 
-
-mongoose.connect(process.env.MONGODB_URI);
+const dbUrl = process.env.MONGODB_URI;
+mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console,'connection error:'));
 db.once('open',() => {
@@ -30,17 +34,27 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
+const secret = process.env.SESSION_SECRET;
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret
+    }
+});
+
 const sessionConfig = {
-    secret: process.env.SESSION_SECRET,
+    store,
+    name: 'cc-session',
     resave: false,
     saveUninitialized: true,
     cookie: {
-        HttpOnly: true,
+        httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 };
-
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -67,15 +81,6 @@ app.get('/',(req,res) => {
     res.send('home');
 });
 
-const calculateOrderAmount = (items) => {
-    // Calculate the order total on the server to prevent
-    // people from directly manipulating the amount on the client
-    let total = 0;
-    items.forEach((item) => {
-      total += item.amount;
-    });
-    return total;
-  };
 
 app.post("/create-payment-intent", async (req, res) => {
     try{
