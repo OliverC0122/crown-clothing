@@ -1,1 +1,2 @@
-web: cd crown-clothing/crown-clothing-server/ && npm start
+web: cd crown-clothing-server && npm start
+
