@@ -1,15 +1,12 @@
 import { useState } from "react";
-
-
 import FormInput from "../form-input/form-input.component";
 import './sign-in-form.style.scss'
 import Button from "../button/button.component";
-
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { signInStart } from "../../store/user/user.action";
 import { setCurrentUser } from "../../store/user/user.reducer";
 import api from '../../api/axios/axiosConfig';
+import { useTranslation } from "react-i18next";
 
 const defaultFormFeilds = {
     username:'',
@@ -17,7 +14,7 @@ const defaultFormFeilds = {
 }
 
 const SignInForm = () => {
-
+    const { t } = useTranslation();
 
     const dispatch = useDispatch();
 
@@ -65,14 +62,14 @@ const SignInForm = () => {
 
     return (
         <div className="sign-up-container">
-            <h2> Don't have an account? </h2>
+            <h2> {t("Sign in header")} </h2>
             <span>
-                Sign up with your Email and Password
+                {t("Sign In Prompt")}
             </span>
 
             <form onSubmit={handleSubmit}>
-                <FormInput label='Username' required type="text" onChange={handleChange} name="username" value={username}/>
-                <FormInput label='Password' required type="password" onChange={handleChange} name="password" value={password}/>
+                <FormInput label={t("Username")} required type="text" onChange={handleChange} name="username" value={username}/>
+                <FormInput label={t("Password")} required type="password" onChange={handleChange} name="password" value={password}/>
             </form>
 
             <div className="signin-button-container">

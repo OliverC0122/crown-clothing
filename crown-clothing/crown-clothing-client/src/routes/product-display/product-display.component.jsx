@@ -7,10 +7,12 @@ import Button from "../../components/button/button.component";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { addItemToCart } from "../../store/cart/cart.reducer";
+import { useTranslation } from "react-i18next";
 
 
 
 const ProductDisplay = () => {
+    const { t } = useTranslation();
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const navigate = useNavigate();
@@ -62,14 +64,14 @@ const ProductDisplay = () => {
         <div className="product-display">
             <h1>{name}</h1>
             <img src={imageUrl} alt={name} />
-            <p>Price: ${price}</p>
+            <p>{t("Price")}: ${price}</p>
 
             {currentUser ? (
             <div className="product-display__buttons">
                 <button onClick={handleEdit} className="edit-button">Edit</button>
                 <button onClick={handleDelete} className="delete-button">Delete</button>
             </div>) :
-            (<Button buttonType='inverted' onClick={addProductToCart}>Add to Cart</Button>)
+            (<Button buttonType='inverted' onClick={addProductToCart}>{t("Add to Cart")}</Button>)
             }
         </div>
     );

@@ -4,8 +4,10 @@ import CheckoutItem from '../../components/checkout-item/checkout-item.component
 import { useSelector } from 'react-redux';
 import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector';
 import PaymentForm from '../../components/payment-form/payment-form.component';
+import { useTranslation } from 'react-i18next';
 
 const Checkout = () => {
+    const { t } = useTranslation();
 
     const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal);
@@ -14,28 +16,28 @@ const Checkout = () => {
         <div className='checkout-container'>
             <div className='checkout-header'>
                 <div className='header-block'>
-                    <span>Product</span>
+                    <span>{t("Product")}</span>
                 </div>
 
                 <div className='header-block'>
-                    <span>Description</span>
+                    <span>{t("Description")}</span>
                 </div>
 
                 <div className='header-block'>
-                    <span>Quantity</span>
+                    <span>{t("Quantity")}</span>
                 </div>
 
                 <div className='header-block'>
-                    <span>Price</span>
+                    <span>{t("Price")}</span>
                 </div>
 
                 <div className='header-block'>
-                    <span>remove</span>
+                    <span>{t("Remove")}</span>
                 </div>
             </div>
             {cartItems.map((cartItem) => <CheckoutItem key={cartItem._id} cartItem={cartItem}/>)}
 
-            <span className='total'>Total: ${cartTotal}.00 </span>
+            <span className='total'>{t("Total")}: ${cartTotal}.00 </span>
             <PaymentForm/>
             </div>
 

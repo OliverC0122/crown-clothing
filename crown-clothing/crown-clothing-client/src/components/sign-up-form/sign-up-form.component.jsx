@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import FormInput from "../form-input/form-input.component";
 import './sign-up-form.style.scss'
 import Button from "../button/button.component";
 import { useDispatch, useSelector } from "react-redux";
-
 import { selectCurrentUser } from "../../store/user/user.selector";
-
 import { setCurrentUser } from "../../store/user/user.reducer";
 import  api from "../../api/axios/axiosConfig"
-
-
+import { useTranslation } from "react-i18next";
 
 const defaultFormFeilds = {
     username: '',
@@ -24,6 +20,7 @@ const SignUpForm = () => {
 
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
+    const { t } = useTranslation();
 
 
     const [formFeilds,setFormFeilds] = useState(defaultFormFeilds);
@@ -68,21 +65,21 @@ const SignUpForm = () => {
 
     return (
         <div className="sign-up-container">
-            <h2> Don't have an account? </h2>
+            <h2> {t("Sign up header")}</h2>
             <span>
-                Sign up with your Email and Password
+                {t("Sign Up Prompt")}
             </span>
 
             <form onSubmit={handleSubmit}>
 
-                <FormInput label='Username' required type="text" onChange={handleChange} name="username" value={username}/>
+                <FormInput label={t("Username")} required type="text" onChange={handleChange} name="username" value={username}/>
 
-                <FormInput label='Email' required type="email" onChange={handleChange} name="email" value={email}/>
+                <FormInput label={t("email")} required type="email" onChange={handleChange} name="email" value={email}/>
 
-                <FormInput label='Password' required type="password" onChange={handleChange} name="password" value={password}/>
+                <FormInput label={t('Password')} required type="password" onChange={handleChange} name="password" value={password}/>
 
-                <FormInput label='Confirm Password' required type="password" onChange={handleChange} name="confirmPassword" value={confirmPassword}/>
-                <div className="sign-up-button-container"><Button type='submit'>Sign Up</Button></div>
+                <FormInput label={t("Confirm Password")} required type="password" onChange={handleChange} name="confirmPassword" value={confirmPassword}/>
+                <div className="sign-up-button-container"><Button type='submit'>{t("Sign Up")}</Button></div>
 
             </form>
         </div>

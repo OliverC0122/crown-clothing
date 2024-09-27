@@ -8,9 +8,11 @@ import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import PaymentSuccess from "../payment-successful/payment-success.component";
 import { clearAllCartItems } from "../../store/cart/cart.reducer";
+import { useTranslation } from "react-i18next";
 
 const PaymentForm = () => {
 
+    const { t } = useTranslation();
     const stripe = useStripe();
     const elements = useElements();
 
@@ -57,7 +59,6 @@ const PaymentForm = () => {
                 dispatch(clearAllCartItems());
             }
         }
-
     }
 
     return (
@@ -66,10 +67,10 @@ const PaymentForm = () => {
             {isPaymentSuccessful ? (<PaymentSuccess/>) : 
             
             (<form className="form-container" onSubmit={paymentHandler}>
-                <h2>Credit Card Payment: </h2>
+                <h2>{t("Credit Card Payment")} </h2>
                 <CardElement className="card-element"/>
                 <div className="payment-button-container">
-                    <Button disabled={amount === 0} isLoading={isProcessingPayment} buttonType={BUTTON_TYPE_CLASSES.inverted}>Pay Now</Button>
+                    <Button disabled={amount === 0} isLoading={isProcessingPayment} buttonType={BUTTON_TYPE_CLASSES.inverted}>{t("Pay now")}</Button>
                 </div>
             </form>
             )}

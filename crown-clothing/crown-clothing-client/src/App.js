@@ -10,9 +10,18 @@ import ContactUs from './routes/contact-us/contact-us.component.jsx';
 import New from './routes/new/new.component.jsx';
 import ProductDisplay from './routes/product-display/product-display.component.jsx';
 import Edit from './routes/edit/edit.component.jsx';
+import "./utils/i18n/i18n.js";
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 
 const App = () => {
 
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(navigator.language);
+  }, [i18n]);
 
   return (
 

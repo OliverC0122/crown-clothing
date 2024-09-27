@@ -8,7 +8,6 @@ import { selectCategories } from "../../store/categories/category.selector";
 
 const CategoriesPreview = () => {
 
-    // const {categoriesMap} = useContext(CategoriesContext);
 
     const categories = useSelector(selectCategories);
 

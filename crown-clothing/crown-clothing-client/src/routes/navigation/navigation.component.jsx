@@ -3,20 +3,17 @@ import { Outlet, Link } from "react-router-dom";
 import { Fragment,useEffect } from "react";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import './navigation.style.scss';
-
 import { useSelector, useDispatch } from "react-redux";
-
-
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
-
-// import { signOutStart } from "../../store/user/user.action";
 import { setCurrentUser } from "../../store/user/user.reducer";
 import { selectCurrentUser } from "../../store/user/user.selector";
-
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
+import { useTranslation } from "react-i18next";
+
 const Navigation = () => {
+    const { t } = useTranslation();
 
     const dispatch  = useDispatch();
     
@@ -34,9 +31,6 @@ const Navigation = () => {
     useEffect(() => {
 
     }, [currentUser]); // effect runs when currentUser changes
- 
-
-
 
     return (
       <Fragment>
@@ -48,31 +42,31 @@ const Navigation = () => {
             <div className="nav-links-container">
 
                 <Link className="nav-link" to="products">
-                    Products
+                    {t("Products")}
                 </Link>
 
                 <Link className="nav-link" to="support">
-                    Support 
+                    {t("Support")}
                 </Link>
 
                 <Link className="nav-link" to="contactus">
-                    Contact Us
+                    {t("Contact Us")}
                 </Link>
 
                 {currentUser ? 
                 (<div className="admin-links-container">
                 <Link className="nav-link" to="new">
-                    Add New Products
+                    {t("New Product")}
                 </Link>
 
                 <span className="nav-link" onClick={signOutCurrentUser}>
-                    Sign Out
+                    {t("Sign Out")}
                 </span>
                 </div>
                 
                 ) : 
                 (<Link className="nav-link" to="auth">
-                    Sign In
+                    {t("Sign In")}
                 </Link>)}
 
                 <Link className="cart-link">

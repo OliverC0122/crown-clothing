@@ -1,6 +1,8 @@
 import QuestionCard from "../../components/question-card/question-card.component";
-import "./support.styles.scss"
+import "./support.styles.scss";
+import { useTranslation } from "react-i18next";
 const Support = () => {
+    const {t} = useTranslation();
 
     const faqData = [
         {   
@@ -29,9 +31,11 @@ const Support = () => {
 
     return (
         <div className="faq-container">
-            <h1 className="support-title"> FAQ</h1>
+            <h1 className="support-title"> {t("FAQ")}</h1>
             <div className="question-card-container">
+
                 {faqData.map((data)=>{
+
                     const {id,question,answer} = data;
                     return (
                         <QuestionCard key={id} question={question} answer={answer}/>
