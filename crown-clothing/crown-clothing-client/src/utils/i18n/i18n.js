@@ -48,6 +48,7 @@ i18next
                     "Women's": "Women's",
                     "Payment Successful!": "Payment Successful!",
                     "Thank you for your purchase.": "Thank you for your purchase.",
+                    
                 }
             },
             fr: {
@@ -88,7 +89,9 @@ i18next
                     "Sneakers": "Baskets",
                     "Jackets": "Vestes",
                     "Men's": "Hommes",
+                    "Mens": "Hommes",
                     "Women's": "Femmes",
+                    "Womens": "Femmes",
                     "Payment Successful!": "Paiement réussi!",
                     "Thank you for your purchase.": "Merci pour votre achat.",
 
@@ -132,7 +135,9 @@ i18next
                     "Sneakers": "运动鞋",
                     "Jackets": "夹克",
                     "Men's": "男装",
+                    "Mens": "男装",
                     "Women's": "女装",
+                    "Womens": "女装",
                     "Payment Successful!": "付款成功！",
                     "Thank you for your purchase.": "欢迎再次光临",
                 }
