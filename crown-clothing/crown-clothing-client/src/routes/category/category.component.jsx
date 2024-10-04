@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 import { Fragment, useEffect, useState, useCallback } from 'react'; // Import useCallback
 import api from '../../api/axios/axiosConfig';
 import ProductCard from '../../components/product-card/product-card.component';
+import { useTranslation } from 'react-i18next';
 
 const Category = () => {
 
-
+    const { t } = useTranslation();
     const {category} = useParams();
     const [products,setProducts] = useState();
 
@@ -26,7 +27,7 @@ const Category = () => {
 
     return (
         <Fragment>
-            <h2 className='category-title'>{category.toUpperCase()}</h2>
+            <h2 className='category-title'>{t(category)}</h2>
             {
                 <div className='category-container'>
                     {products && products.map((product)=>{
